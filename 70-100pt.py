@@ -9,9 +9,12 @@
 from Tkinter import *
 root = Tk()
 drawpad = Canvas(root, width=800,height=600, background='white')
-player = drawpad.create_oval(390,580,410,600, fill="blue")
+x1 = 390
+x2 =410
+y1 = 580
+y2 = 600
+player = drawpad.create_oval(x1,y1,x2,y2, fill="blue")
 enemy = drawpad.create_rectangle(50,50,100,60, fill="red")
-
 direction = 5
 
 class myApp(object):
@@ -54,8 +57,18 @@ class myApp(object):
     def key(self,event):
         global player
         if event.char == "w":
-            drawpad.move(player,0,-4)
-        
+            drawpad.move(player,0,-10)
+        if event.char == "a":
+            drawpad.move(player,-10,0)
+        if event.char == "d":
+            drawpad.move(player,10,0)
+        if event.char == "s":
+            drawpad.move(player,0,10)
+        if event.char == "o":
+            rx1,ry1,rx2,ry2 = drawpad.coords(player)
+            Rocket = drawpad.create_rectangle(rx1,ry2,rx2,ry1, fill="red")
+            drawpad.move(Rocket,0,-20)
+            drawpad.after(20,self.key)
     def collisionDetect(self,rocket):
         rx1,ry1,rx2,ry2 = drawpad.coords(rocket)
         
